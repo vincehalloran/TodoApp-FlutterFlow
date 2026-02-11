@@ -575,7 +575,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                         EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFF65F39F),
+                    color: Color(0xFF65F3F2),
                     textStyle:
                         FlutterFlowTheme.of(context).labelMedium.override(
                               font: GoogleFonts.inter(
