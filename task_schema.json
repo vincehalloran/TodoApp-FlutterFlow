@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Task",
+  "description": "Schema for task documents in Firestore (Todo app)",
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "details": { "type": "string" },
+    "completed": { "type": "boolean" },
+    "created": { "type": "string", "format": "date-time" },
+    "user": {
+      "type": "string",
+      "description": "Firestore document reference path like /users/abc123"
+    }
+  },
+  "required": ["title", "completed", "created", "user"]
+}
