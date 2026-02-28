@@ -1,11 +1,14 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/add_task_widget.dart';
 import '/components/tasks_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'task_model.dart';
 export 'task_model.dart';
@@ -29,6 +32,13 @@ class _TaskWidgetState extends State<TaskWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TaskModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.apiResult4u9 = await ZenQuotesRandomCall.call();
+
+      _model.quote = 'This is a test';
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -195,6 +205,98 @@ class _TaskWidgetState extends State<TaskWidget> {
                       },
                     );
                   },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(50.0, 0.0, 0.0, 160.0),
+                child: Text(
+                  valueOrDefault<String>(
+                    _model.quote,
+                    'quote loading...',
+                  ),
+                  style: FlutterFlowTheme.of(context).headlineLarge.override(
+                        font: GoogleFonts.interTight(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
+                        ),
+                        letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontStyle,
+                      ),
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    _model.apiResulttur = await ZenQuotesRandomCall.call();
+
+                    if ((_model.apiResulttur?.succeeded ?? true)) {
+                      _model.quote = getJsonField(
+                        (_model.apiResult4u9?.jsonBody ?? ''),
+                        r'''$[0].q''',
+                      ).toString();
+                      safeSetState(() {});
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                    }
+
+                    safeSetState(() {});
+                  },
+                  text: 'get quote',
+                  options: FFButtonOptions(
+                    width: 200.0,
+                    height: 70.0,
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFFC1BB86),
+                    textStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
+                    elevation: 0.0,
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                    ),
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
                 ),
               ),
             ].divide(SizedBox(height: 12.0)),
