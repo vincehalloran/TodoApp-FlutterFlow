@@ -4,6 +4,10 @@ import 'loginpage_widget.dart' show LoginpageWidget;
 import 'package:flutter/material.dart';
 
 class LoginpageModel extends FlutterFlowModel<LoginpageWidget> {
+  ///  Local state fields for this page.
+
+  int? randomValue;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
