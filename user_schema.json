@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User",
+  "description": "Schema for user documents in Firestore (Todo app)",
+  "type": "object",
+  "properties": {
+    "uid": { "type": "string" },
+    "display_name": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "photo_url": { "type": "string", "format": "uri" },
+    "created_time": { "type": "string", "format": "date-time" },
+    "birthdate": { "type": "string", "format": "date-time" }
+  },
+  "required": ["uid", "display_name", "email", "created_time"]
+}
